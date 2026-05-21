@@ -33,8 +33,25 @@ pipeline {
                             sh 'python -m pip install -r requirements.txt'
                         }
                     } else {
-                        sh 'python3 -m ensurepip --upgrade || (apt-get update && apt-get install -y python3-pip) || true'
-                        sh 'python3 -m pip install -r requirements.txt'
+                        sh '''
+                            # Ensure pip exists (user install) and create a venv in workspace
+                            python3 -m pip --version || (
+                                (curl -sS https://bootstrap.pypa.io/get-pip.py -o get-pip.py || wget -q -O get-pip.py https://bootstrap.pypa.io/get-pip.py) && \
+                                python3 get-pip.py --user
+                            )
+                            export PATH="$HOME/.local/bin:$PATH"
+
+                            # Create a venv in the workspace (fallback to virtualenv if venv missing)
+                            python3 -m venv .venv || (
+                                python3 -m pip install --user virtualenv && \
+                                python3 -m virtualenv .venv
+                            )
+
+                            # Activate and install requirements into venv
+                            . .venv/bin/activate
+                            python -m pip install --upgrade pip
+                            python -m pip install -r requirements.txt
+                        '''
                     }
                 }
             }
@@ -48,7 +65,7 @@ pipeline {
                             sh 'python -m madewithml.train --experiment-name mlops-project --dataset-loc datasets/dataset.csv'
                         }
                     } else {
-                        sh 'python3 -m madewithml.train --experiment-name mlops-project --dataset-loc datasets/dataset.csv'
+                        sh '. .venv/bin/activate && python -m madewithml.train --experiment-name mlops-project --dataset-loc datasets/dataset.csv'
                     }
                 }
             }
@@ -62,7 +79,7 @@ pipeline {
                             sh 'python -m madewithml.evaluate --run-id $(cat results.json | python -c "import sys,json; print(json.load(sys.stdin)[\"run_id\"])")'
                         }
                     } else {
-                        sh 'python3 -m madewithml.evaluate --run-id $(cat results.json | python3 -c "import sys,json; print(json.load(sys.stdin)[\"run_id\"])")'
+                        sh '. .venv/bin/activate && python -m madewithml.evaluate --run-id $(cat results.json | python -c "import sys,json; print(json.load(sys.stdin)[\"run_id\"])")'
                     }
                 }
             }
