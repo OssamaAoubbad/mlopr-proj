@@ -1,0 +1,66 @@
+{
+  "timestamp": "May 19, 2026 02:50:01 PM",
+  "run_id": "e4327334c7ba4302ad258dd2d95224c1",
+  "params": {
+    "dropout_p": 0.3,
+    "lr": 1e-05,
+    "lr_factor": 0.8,
+    "lr_patience": 3,
+    "num_samples": 100,
+    "num_epochs": 10,
+    "batch_size": 8,
+    "num_classes": 4
+  },
+  "metrics": [
+    {
+      "epoch": 0,
+      "train_loss": 0.6010664820671081,
+      "val_loss": 0.5486821830272675
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.5113920629024505,
+      "val_loss": 0.5194618006547292
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.4796970218420029,
+      "val_loss": 0.5106893181800842
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.4499600678682327,
+      "val_loss": 0.490731418132782
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.41217104792594905,
+      "val_loss": 0.4665047327677409
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.3624736726284027,
+      "val_loss": 0.43680039048194885
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.30738858282566073,
+      "val_loss": 0.39354774355888367
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.2520083233714104,
+      "val_loss": 0.3602295021216075
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.20654161721467973,
+      "val_loss": 0.37849531571070355
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.17141719460487365,
+      "val_loss": 0.3132333407799403
+    }
+  ]
+}
