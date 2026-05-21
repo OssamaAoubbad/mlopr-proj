@@ -13,9 +13,27 @@ pipeline {
             }
         }
 
+        stage('Diagnostics') {
+            steps {
+                // print helpful info when Docker or Python is missing
+                sh '''
+                echo "=== PATH / Tools ==="
+                which docker || true
+                docker --version || true
+                which python || true
+                python --version || true
+                which pip || true
+                pip --version || true
+                '''
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh '''
+                # prefer python -m pip, fall back to pip
+                python -m pip install -r requirements.txt || python3 -m pip install -r requirements.txt || pip install -r requirements.txt
+                '''
             }
         }
 
