@@ -33,6 +33,7 @@ pipeline {
                             sh 'python -m pip install -r requirements.txt'
                         }
                     } else {
+                        sh 'python3 -m ensurepip --upgrade || (apt-get update && apt-get install -y python3-pip) || true'
                         sh 'python3 -m pip install -r requirements.txt'
                     }
                 }
