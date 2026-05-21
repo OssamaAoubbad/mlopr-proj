@@ -33,7 +33,7 @@ pipeline {
                             sh 'python -m pip install -r requirements.txt'
                         }
                     } else {
-                        sh 'python -m pip install -r requirements.txt'
+                        sh 'python3 -m pip install -r requirements.txt'
                     }
                 }
             }
@@ -47,7 +47,7 @@ pipeline {
                             sh 'python -m madewithml.train --experiment-name mlops-project --dataset-loc datasets/dataset.csv'
                         }
                     } else {
-                        sh 'python -m madewithml.train --experiment-name mlops-project --dataset-loc datasets/dataset.csv'
+                        sh 'python3 -m madewithml.train --experiment-name mlops-project --dataset-loc datasets/dataset.csv'
                     }
                 }
             }
@@ -61,7 +61,7 @@ pipeline {
                             sh 'python -m madewithml.evaluate --run-id $(cat results.json | python -c "import sys,json; print(json.load(sys.stdin)[\"run_id\"])")'
                         }
                     } else {
-                        sh 'python -m madewithml.evaluate --run-id $(cat results.json | python -c "import sys,json; print(json.load(sys.stdin)[\"run_id\"])")'
+                        sh 'python3 -m madewithml.evaluate --run-id $(cat results.json | python3 -c "import sys,json; print(json.load(sys.stdin)[\"run_id\"])")'
                     }
                 }
             }
