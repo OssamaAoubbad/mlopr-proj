@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10-slim'
+            args '-v $HOME/.cache/pip:/root/.cache/pip'
+        }
+    }
 
     stages {
         stage('Checkout') {
